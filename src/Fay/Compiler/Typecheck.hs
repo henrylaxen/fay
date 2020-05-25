@@ -12,6 +12,7 @@ import           Fay.Types
 import qualified GHC.Paths             as GHCPaths
 
 import           System.Directory
+import           System.Environment
 
 -- | Call out to GHC to type-check the file.
 typecheck :: Config -> FilePath -> IO (Either CompileError String)
@@ -40,10 +41,20 @@ typecheck cfg fp = do
           , "-i" ++ intercalate ":" includeDirs
           , fp ] ++ ghcPackageDbArgs ++ wallF ++ map ("-package " ++) packages
   exists <- doesFileExist GHCPaths.ghc
-  let ghcPath = if exists then GHCPaths.ghc else "ghc"
+  stackInNixShell <- fmap isJust (lookupEnv "STACK_IN_NIX_SHELL")
+  let ghcPath = if exists
+        then if (isInfixOf ".stack" GHCPaths.ghc || stackInNixShell)
+             then "stack"
+             else GHCPaths.ghc
+        else "ghc"
+      extraFlags = case ghcPath of
+        "stack" -> ["exec","--","ghc"]
+        _       -> []
   when (configShowGhcCalls cfg) $
-    putStrLn . unwords $ ghcPath : flags
-  res <- readAllFromProcess ghcPath flags ""
+    putStrLn . unwords $ ghcPath : (extraFlags ++ flags)
+  when stackInNixShell (unsetEnv "STACK_IN_NIX_SHELL")
+  res <- readAllFromProcess ghcPath (extraFlags ++ flags) ""
+  when stackInNixShell (setEnv "STACK_IN_NIX_SHELL" "1")
   either (return . Left . GHCError . fst) (return . Right . fst) res
    where
     wallF | configWall cfg = ["-Wall"]

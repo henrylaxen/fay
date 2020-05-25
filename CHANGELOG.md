@@ -2,6 +2,27 @@
 
 See full history at: <https://github.com/faylang/fay/commits>
 
+### 0.24.1.0 (2020-03-26)
+
+* GHC 8.10.1 support.
+
+#### 0.24.0.5 (2020-03-10)
+
+* GHC 8.8 support.
+
+#### 0.24.0.4 (2019-12-03)
+
+* Fixes stack nix integration broken.
+
+#### 0.24.0.3 (2019-04-29)
+
+* Dependency updates including GHC-8.6 support.
+* Added stack compatibility.
+
+#### 0.24.0.2
+
+* Fix dependent compilation fail when building project with stack (#457).
+
 #### 0.24.0.1
 
 * Dependency updates incl GHC 8.4 support
