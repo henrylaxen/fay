@@ -14,7 +14,7 @@ install:
 script:
   - cabal --version
   - ghc --version
-  - cabal install . fay-base/ --jobs=1 -ftest
+  - cabal install . fay-base/ --allow-newer=base,template-haskell --jobs=1 -ftest
   - cabal exec fay-tests -- --num-threads=4 -random 20
   - npm install
   - npm test
