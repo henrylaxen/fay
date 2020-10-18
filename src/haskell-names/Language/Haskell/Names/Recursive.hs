@@ -20,7 +20,6 @@ import           Language.Haskell.Names.ScopeUtils
 import           Language.Haskell.Names.SyntaxUtils
 import           Language.Haskell.Names.Types
 
-import           Data.Data                            (Data)
 import           Data.Foldable
 import           Data.Graph                           (flattenSCC, stronglyConnComp)
 import qualified Data.Set                             as Set

@@ -58,7 +58,7 @@ inlineMonad = map go where
     JsContinue              -> JsContinue
     JsBlock stmts           -> JsBlock (map go stmts)
     JsExpStmt exp           -> JsExpStmt (inline exp)
-
+    JsMapVar _ _            -> error "In inlineMonad: did not expect JSMapVar"
   inline expr = case expr of
     -- Optimizations
     JsApp op args -> fromMaybe (JsApp (inline op) $ map inline args) (flatten expr)

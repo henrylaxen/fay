@@ -60,7 +60,7 @@ compileFFIExp loc (fmap unAnn -> nameopt) formatstr sig' =
       TyWildCard {}     -> error "TyWildCard not supported"
       TyQuasiQuote {}   -> error "TyQuasiQuote not supported"
       TyUnboxedSum {}   -> error "TyUnboxedSum not supported"
-
+      TyStar _          -> error "In compileFFIExp: unexpected TyStar"
     compileFFI' :: N.Type -> Compile JsExp
     compileFFI' sig = do
       let name = fromMaybe "<exp>" nameopt

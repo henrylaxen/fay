@@ -5,13 +5,12 @@ module Main where
 import           Fay
 import           Paths_fay                 (version)
 
-import           Control.Applicative       ((<|>), (<$>), (<*>))
+import           Control.Applicative       ((<|>))
 import qualified Control.Exception         as E
 import           Control.Monad
 import           Control.Monad.Reader
 import           Data.List.Split           (wordsBy)
 import           Data.Maybe
-import           Data.Monoid               ((<>))
 import           Data.Version              (showVersion)
 import           Options.Applicative       (Mod, OptionFields, Parser, argument, execParser, fullDesc, header, help,
                                             helper, info, long, many, metavar, option, optional, short, strOption,

@@ -22,7 +22,6 @@ import           Data.Lens.Light
 import qualified Data.Map                           as Map
 import qualified Data.Set                           as Set
 import           Language.Haskell.Exts    as HSE
-import           Data.Semigroup (Semigroup)
 
 -- | Global symbol table — contains global names
 data Table =
